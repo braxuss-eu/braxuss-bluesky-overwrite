@@ -5,14 +5,24 @@ import { RouterView } from 'vue-router'
 <template>
   <header>
     <div class="wrapper">
-      <h1>Overwrite a Bluesky post <a href="https://github.com/braxuss-eu/braxuss-bluesky-overwrite" class="i-github" target="_blank"></a></h1>
+      <h1>Overwrite a Bluesky post</h1>
       <h2>with the content of another one</h2>
     </div>
   </header>
 
   <RouterView />
   <footer>
-    <p>©2024 <a href="https://bsky.app/profile/braxuss.eu" target="_blank">@braxuss</a></p>
+    <p>©2024
+      <a href="https://bsky.app/profile/braxuss.eu"
+        title="Visit my Bluesky profile"
+        target="_blank">
+        @braxuss
+      </a>
+      <a href="https://github.com/braxuss-eu/braxuss-bluesky-overwrite"
+        class="i-github"
+        title="Get the code at GitHub"
+        target="_blank"></a>
+    </p>
   </footer>
 </template>
 
@@ -44,6 +54,10 @@ footer {
   padding: 0.5rem;
   text-align: center;
 }
+footer a {
+  color: light-dark(#333b3c, #efefec);
+  text-decoration: underline;
+}
 
 a.i-github {
   display: inline-block;
@@ -52,8 +66,9 @@ a.i-github {
   background-color: currentColor;
   color: light-dark(#333b3c, #efefec);
   filter: drop-shadow(silver 0px 0px 5px);
-  width: 2rem;
-  height: 2rem;
+  width: 1rem;
+  height: 1rem;
   margin-left: 0.5rem;
+  vertical-align: middle;
 }
 </style>
