@@ -1,7 +1,8 @@
 {
     "client_id": "https://overwrite.braxuss.eu/client-metadata.json",
-    "client_name": "overwrite.braxuss.eu",
+    "client_name": "Bluesky Overwrite",
     "client_uri": "https://overwrite.braxuss.eu",
+    "logo_uri": "https://overwrite.braxuss.eu/favicon.png",
     "redirect_uris": [
         "https://overwrite.braxuss.eu/"
     ],
@@ -15,5 +16,7 @@
     ],
     "token_endpoint_auth_method": "none",
     "application_type": "web",
-    "dpop_bound_access_tokens": true
+    "dpop_bound_access_tokens": true,
+    "tos_uri": "https://overwrite.braxuss.eu/tos",
+    "policy_uri": "https://overwrite.braxuss.eu/policy"
 }

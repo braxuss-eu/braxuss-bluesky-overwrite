@@ -1,11 +1,16 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, useRouter } from 'vue-router'
+
+const router = useRouter();
+const home = () => {
+    router.push('/');
+};
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <h1>Overwrite a Bluesky post</h1>
+      <h1><img src="/favicon.png" @click="home" style="cursor: pointer;" /> Overwrite a Bluesky post</h1>
       <h2>with the content of another one</h2>
     </div>
   </header>
@@ -22,6 +27,17 @@ import { RouterView } from 'vue-router'
         class="i-github"
         title="Get the code at GitHub"
         target="_blank"></a>
+    </p>
+    <p>
+      <template v-if="router.currentRoute.value.name == 'overwrite'">
+      <a href="/tos">Terms of service</a> | <a href="/policy">Usage policy</a>
+    </template>
+    <template v-else-if="router.currentRoute.value.name == 'tos'">
+      <a href="/">Home</a> | <a href="/policy">Usage policy</a>
+    </template>
+    <template v-else-if="router.currentRoute.value.name == 'policy'">
+      <a href="/">Home</a> | <a href="/tos">Terms of service</a>
+    </template>
     </p>
   </footer>
 </template>
