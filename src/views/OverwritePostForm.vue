@@ -76,8 +76,17 @@ const handleLogin = async () => {
   const params = new URLSearchParams(location.hash.slice(1));
   if (params.has("state") && (params.has("code") || params.has("error"))) {
     history.replaceState(null, "", location.pathname + location.search);
-    const session = await finalizeAuthorization(params);
-    return session.info.sub;
+    try {
+      const session = await finalizeAuthorization(params);
+      return session.info.sub;
+    } catch (e) {
+      $toast.error('Error logging in. You can try again.');
+      savedState.action = null;
+      formEnabled.value = true;
+      loading.value = false;
+      console.error(e);
+      return null;
+    }
   } else {
     return null;
   }
@@ -158,7 +167,7 @@ const submit = async () => {
     }
   }
   $toast.clear();
-  var handle;
+  var handle, pds;
   if (ok) {
     const didOrHandle = sourceUrl.value.match(bskyPostPattern)[1];
     const resolvePDS = async (did) => {
@@ -187,16 +196,24 @@ const submit = async () => {
       return res.data.handle;
     };
     $toast.clear();
-    $toast.info('Making checks (1)...');
-    if (didOrHandle.startsWith("did:")) {
-      did = didOrHandle;
-    } else {
-      did = await resolveHandle(didOrHandle);
-    };
-    const pds = await resolvePDS(did);
-    $toast.clear();
-    $toast.info('Making checks (2)...');
-    handle = await getDidHandle(did);
+    try {
+      $toast.info('Making checks (1)...');
+      if (didOrHandle.startsWith("did:")) {
+        did = didOrHandle;
+      } else {
+        did = await resolveHandle(didOrHandle);
+      };
+      pds = await resolvePDS(did);
+      $toast.clear();
+      $toast.info('Making checks (2)...');
+      handle = await getDidHandle(did);
+    } catch (e) {
+      console.error(e);
+      ok = false;
+    }
+  }
+  if (ok) {
+    if (ok)
     var sourceRecord, targetRecord;
     const getPost = (repo, rkey) =>
       rpc.get('com.atproto.repo.getRecord', {
